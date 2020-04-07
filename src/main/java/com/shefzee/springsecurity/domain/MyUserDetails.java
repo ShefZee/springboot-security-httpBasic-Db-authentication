@@ -38,18 +38,6 @@ public class MyUserDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         List<UserRole> roles = userRoleRepository.findAllByUser_Name(user.getName());
-        /*roles.stream()
-                .map(a->a.getRole())
-                .map(a -> {
-                    List<RolePermissions> permissions = rolePermissionsRepositiory.findByRole_Name(a.getName());
-                    permissions.stream()
-                            .map(b->new SimpleGrantedAuthority(b.getPermission()))
-                            .map(c->authorities.add(c));
-
-                    return a;
-                })
-                .map(a-> new SimpleGrantedAuthority(a.getName()))
-                .map(a -> authorities.add(a));*/
 
         for(UserRole role : roles){
             SimpleGrantedAuthority auth = new SimpleGrantedAuthority(role.getRole().getName());
